@@ -1,0 +1,278 @@
+/* =============================================================
+   Trade.css  —  Trading Desk + Embedded Dashboard styles
+   ============================================================= */
+
+/* ── Submit button ── */
+.trade-submit-btn {
+  margin-top:     0.5rem;
+  padding:        0.65rem 1.5rem;
+  border:         none;
+  border-radius:  var(--radius-sm);
+  font-family:    var(--font-main);
+  font-size:      0.82rem;
+  font-weight:    700;
+  letter-spacing: 0.06em;
+  cursor:         pointer;
+  transition:     opacity 0.15s;
+}
+.trade-submit-btn:hover { opacity: 0.88; }
+.trade-submit-btn.buy   { background: var(--color-buy);  color: #0a0e1a; }
+.trade-submit-btn.sell  { background: var(--color-sell); color: #ffffff; }
+
+/* ── Section heading with optional count badge ── */
+.section-heading {
+  font-size:      0.65rem;
+  font-weight:    700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color:          var(--color-muted);
+  margin-bottom:  1rem;
+  padding-bottom: 0.5rem;
+  border-bottom:  1px solid var(--color-border);
+  display:        flex;
+  align-items:    center;
+  gap:            0.5rem;
+}
+.section-count {
+  font-size:      0.63rem;
+  color:          var(--color-accent);
+  background:     var(--color-accent-bg);
+  padding:        0.1rem 0.4rem;
+  border-radius:  3px;
+}
+
+/* ── Info box ── */
+.trade-info-box {
+  background:    var(--color-input-bg);
+  border:        1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding:       1rem 1.25rem;
+  margin-bottom: 1.5rem;
+}
+.trade-info-line   { font-size: 0.78rem; color: var(--color-muted); line-height: 2; }
+.trade-info-line b { color: var(--color-text); }
+
+/* ═══════════════════════════════════════
+   ORDER BOOK DEPTH  (BID / ASK columns)
+   ═══════════════════════════════════════ */
+
+/* Two-column grid separated by a 1px border */
+.order-book-grid {
+  display:               grid;
+  grid-template-columns: 1fr 1fr;
+  gap:                   1px;
+  background:            var(--color-border);
+  border:                1px solid var(--color-border);
+  border-radius:         var(--radius-md);
+  overflow:              hidden;
+  margin-bottom:         0;
+}
+
+/* Each half */
+.ob-side {
+  background: var(--color-card);
+  padding:    1rem;
+}
+
+/* BID / ASK title */
+.ob-side-title {
+  font-size:      0.62rem;
+  font-weight:    700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom:  0.6rem;
+  padding-bottom: 0.4rem;
+  border-bottom:  1px solid var(--color-border);
+}
+.ob-side-title.bid { color: var(--color-buy);  }
+.ob-side-title.ask { color: var(--color-sell); }
+
+/* Column header row */
+.ob-col-header {
+  display:               grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  font-size:             0.59rem;
+  color:                 var(--color-muted);
+  letter-spacing:        0.06em;
+  text-transform:        uppercase;
+  padding-bottom:        0.35rem;
+  border-bottom:         1px solid var(--color-border);
+  margin-bottom:         0.25rem;
+}
+
+/* Wrapper for depth bar + row content */
+.ob-row-wrap {
+  position:      relative;
+  overflow:      hidden;
+  border-radius: 2px;
+}
+
+/* Visual depth bar fills behind the row */
+.ob-depth-bar {
+  position:      absolute;
+  top:           0;
+  bottom:        0;
+  opacity:       0.07;
+  border-radius: 2px;
+  pointer-events: none;
+}
+.ob-depth-bar.bid  { background: var(--color-buy);  left:  0; }
+.ob-depth-bar.ask  { background: var(--color-sell); right: 0; }
+
+/* Data row inside the depth bar wrapper */
+.ob-row {
+  position:              relative;
+  display:               grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  font-size:             0.78rem;
+  padding:               0.3rem 0;
+  border-bottom:         1px solid #0d1422;
+  transition:            background 0.1s;
+}
+.ob-row:last-child { border-bottom: none; }
+.ob-row:hover      { background: #1a264088; }
+
+.ob-price-bid { color: var(--color-buy);  font-weight: 700; }
+.ob-price-ask { color: var(--color-sell); font-weight: 700; }
+.ob-qty       { color: var(--color-text); }
+.ob-user      { color: var(--color-muted); font-size: 0.68rem; }
+
+.ob-empty {
+  font-size:  0.75rem;
+  color:      var(--color-muted);
+  text-align: center;
+  padding:    1.2rem 0;
+}
+
+/* ══════════════════════════════
+   LIVE POSITIONS
+   ══════════════════════════════ */
+.position-qty-long  { color: var(--color-buy);  font-weight: 700; }
+.position-qty-short { color: var(--color-sell); font-weight: 700; }
+
+/* ── Close Position Panel ── */
+.close-panel {
+  margin-top:    1rem;
+  padding:       1rem 1.25rem;
+  background:    var(--color-input-bg);
+  border:        1px solid var(--color-warn);
+  border-radius: var(--radius-md);
+}
+.close-panel-title  { font-size: 0.82rem; color: var(--color-warn); margin-bottom: 0.3rem; }
+.close-panel-note   { font-size: 0.72rem; color: var(--color-muted); margin-bottom: 0.75rem; line-height: 1.6; }
+.close-panel-row    { display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap; }
+.close-price-input  { max-width: 180px; }
+
+/* ══════════════════════════════
+   UTILITY CELL CLASSES
+   ══════════════════════════════ */
+.exec-price-cell { color: var(--color-accent); font-weight: 700; }
+.muted-cell      { color: var(--color-muted); }
+.id-cell         { color: var(--color-accent); }
+.dash-user-select { max-width: 300px; }
+
+/* ── Strike price note ── */
+.strike-note {
+  font-size:  0.68rem;
+  color:      var(--color-muted);
+  margin-top: 0.3rem;
+}
+
+/* ── Order book contract label ── */
+.ob-contract-label {
+  color:          var(--color-text);
+  font-weight:    500;
+  font-size:      0.75rem;
+  letter-spacing: 0.02em;
+  text-transform: none;
+}
+.ob-hint {
+  color:          var(--color-muted);
+  font-weight:    400;
+  font-size:      0.72rem;
+  text-transform: none;
+}
+
+/* ── Partial fill tag inside order book qty cell ── */
+.ob-partial-tag {
+  color:     var(--color-warn);
+  font-size: 0.63rem;
+}
+
+/* ── Quantity colours in orders table ── */
+.text-buy  { color: var(--color-buy);  font-weight: 700; }
+.text-warn { color: var(--color-warn); font-weight: 700; }
+
+/* ── Fill hint text ── */
+.fill-hint {
+  font-size:     0.7rem;
+  color:         var(--color-muted);
+  margin-bottom: 0.75rem;
+}
+
+/* ── Executed row — clickable ── */
+.exec-row:hover { background: #1a2640; }
+
+/* ── Fill detail expanded row ── */
+.fill-detail-row td { padding: 0; background: #0d1422; }
+.fill-detail {
+  display:     flex;
+  gap:         1.5rem;
+  padding:     0.5rem 1rem;
+  font-size:   0.75rem;
+  color:       var(--color-muted);
+  border-left: 3px solid var(--color-accent);
+  flex-wrap:   wrap;
+}
+.fill-detail b      { color: var(--color-text); }
+.fill-id            { color: var(--color-accent); font-weight: 700; }
+
+/* ── Lot size row below qty input ── */
+.lot-info-row {
+  display:     flex;
+  align-items: center;
+  gap:         0.75rem;
+  margin-top:  0.35rem;
+  font-size:   0.7rem;
+}
+
+/* Lot size label — always visible */
+.lot-size-tag {
+  color:          var(--color-muted);
+  background:     var(--color-input-bg);
+  border:         1px solid var(--color-border);
+  border-radius:  3px;
+  padding:        0.1rem 0.45rem;
+  letter-spacing: 0.03em;
+}
+.lot-size-tag b { color: var(--color-text); }
+
+/* Green tick — qty is valid multiple */
+.lot-count-ok {
+  color:       var(--color-buy);
+  font-weight: 700;
+}
+
+/* Red cross — qty is NOT a valid multiple */
+.lot-count-err {
+  color:       var(--color-sell);
+  font-weight: 700;
+}
+
+/* Red border on the input when qty is invalid */
+.input-error {
+  border-color: var(--color-sell) !important;
+}
+
+/* ── Ceil note — shown when entered qty is bumped up ── */
+.lot-ceil-note {
+  color:       var(--color-warn);
+  font-weight: 700;
+}
+.lot-ceil-note b { color: var(--color-text); }
+
+/* ── Lot hint line below qty input ── */
+.lot-hint { font-size: 0.72rem; color: var(--color-muted); margin: 0.3rem 0 0; }
+.lot-hint b { color: var(--color-text); }
+.lot-ok   { color: var(--color-buy);  font-weight: 700; }
+.lot-ceil { color: var(--color-warn); font-weight: 700; }

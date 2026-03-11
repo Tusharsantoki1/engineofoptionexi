@@ -1,0 +1,75 @@
+/* =============================================================
+   App.css  —  Styles for the root App shell
+   Covers: header, logo, navigation tabs, main content wrapper
+   ============================================================= */
+
+/* ── App Wrapper ── */
+.app-wrapper {
+  min-height:  100vh;
+  background:  var(--color-bg);
+  font-family: var(--font-main);
+  color:       var(--color-text);
+}
+
+/* ── Top Header Bar ── */
+.app-header {
+  background:      var(--color-surface);
+  border-bottom:   1px solid var(--color-border);
+  padding:         0 2rem;
+  height:          60px;
+  display:         flex;
+  align-items:     center;
+  justify-content: space-between;
+  position:        sticky;
+  top:             0;
+  z-index:         100;
+}
+
+/* ── Logo ── */
+.app-logo {
+  font-size:      1rem;
+  font-weight:    700;
+  color:          var(--color-accent);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  user-select:    none;
+}
+
+/* ── Navigation Tab Group ── */
+.app-nav {
+  display: flex;
+  gap:     0.5rem;
+}
+
+/* ── Individual Nav Tab ── */
+.nav-tab {
+  padding:        0.4rem 1.1rem;
+  border:         1px solid var(--color-border);
+  border-radius:  var(--radius-sm);
+  background:     transparent;
+  color:          var(--color-muted);
+  font-family:    var(--font-main);
+  font-size:      0.75rem;
+  cursor:         pointer;
+  letter-spacing: 0.05em;
+  transition:     all 0.15s ease;
+}
+
+.nav-tab:hover {
+  border-color: var(--color-accent);
+  color:        var(--color-accent);
+}
+
+/* Active tab — highlighted with accent colour */
+.nav-tab.active {
+  border-color: var(--color-accent);
+  background:   var(--color-accent-bg);
+  color:        var(--color-accent);
+  font-weight:  600;
+}
+
+/* ── Main content area ── */
+.app-main {
+  max-width: 1100px;
+  margin:    0 auto;
+}

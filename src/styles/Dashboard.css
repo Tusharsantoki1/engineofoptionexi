@@ -1,0 +1,74 @@
+/* =============================================================
+   Dashboard.css  —  Styles specific to the User Dashboard
+   Covers: live positions table, close-position panel,
+           pending orders, executed orders history
+   ============================================================= */
+
+/* ── User selector dropdown — constrain width ── */
+.dashboard-user-select {
+  max-width: 320px;
+}
+
+/* ── Net quantity cell colour — green = long, red = short ── */
+.position-qty-long  { color: var(--color-buy);  font-weight: 700; }
+.position-qty-short { color: var(--color-sell); font-weight: 700; }
+
+/* ── Close Position Panel ──
+     Slides in below the positions table when user clicks "Close" */
+.close-panel {
+  margin-top:    1rem;
+  padding:       1rem 1.25rem;
+  background:    var(--color-input-bg);
+  border:        1px solid var(--color-warn);
+  border-radius: var(--radius-md);
+}
+
+/* Panel heading — shows what is being closed */
+.close-panel-title {
+  font-size:     0.82rem;
+  color:         var(--color-warn);
+  margin-bottom: 0.3rem;
+}
+
+/* Helper note below the title */
+.close-panel-note {
+  font-size:     0.72rem;
+  color:         var(--color-muted);
+  margin-bottom: 0.75rem;
+  line-height:   1.6;
+}
+
+/* Input + buttons row inside the close panel */
+.close-panel-row {
+  display:     flex;
+  gap:         0.75rem;
+  align-items: center;
+  flex-wrap:   wrap;
+}
+
+/* Constrain the price input width */
+.close-price-input {
+  max-width: 180px;
+}
+
+/* ── Executed price cell — accent coloured ── */
+.exec-price-cell {
+  color:       var(--color-accent);
+  font-weight: 700;
+}
+
+/* ── Matched-with / timestamp cells — muted ── */
+.muted-cell {
+  color: var(--color-muted);
+}
+
+/* ── Section divider labels (PENDING / EXECUTED) ── */
+.section-count {
+  color:          var(--color-accent);
+  font-size:      0.63rem;
+  background:     var(--color-accent-bg);
+  padding:        0.1rem 0.4rem;
+  border-radius:  3px;
+  margin-left:    0.4rem;
+  letter-spacing: 0.04em;
+}

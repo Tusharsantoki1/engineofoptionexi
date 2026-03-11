@@ -1,0 +1,329 @@
+/* =============================================================
+   global.css  —  Base reset, CSS variables, shared utility classes
+   Imported once in App.jsx and used across the whole app
+   ============================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap');
+
+/* ── CSS Variables (Design Tokens) ── */
+:root {
+  --color-bg:        #0a0e1a;
+  --color-surface:   #111827;
+  --color-card:      #161d2e;
+  --color-input-bg:  #0d1422;
+  --color-border:    #1e2d45;
+  --color-row-div:   #111827;
+
+  --color-text:      #e2e8f0;
+  --color-muted:     #64748b;
+  --color-accent:    #00d4aa;
+  --color-accent-bg: #00d4aa22;
+
+  --color-buy:       #22c55e;
+  --color-buy-bg:    #22c55e22;
+  --color-sell:      #ef4444;
+  --color-sell-bg:   #ef444422;
+  --color-warn:      #f59e0b;
+  --color-warn-bg:   #f59e0b22;
+  --color-blue:      #60a5fa;
+  --color-blue-bg:   #3b82f622;
+
+  --font-main:  'DM Mono', 'Courier New', monospace;
+  --radius-sm:  4px;
+  --radius-md:  8px;
+  --radius-lg:  12px;
+}
+
+/* ── Reset ── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background:  var(--color-bg);
+  color:       var(--color-text);
+  font-family: var(--font-main);
+  font-size:   14px;
+  line-height: 1.5;
+  min-height:  100vh;
+}
+
+/* Hide number input spinner arrows */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+
+/* Dropdown option background */
+select option {
+  background: var(--color-card);
+  color:      var(--color-text);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar        { width: 5px; }
+::-webkit-scrollbar-track  { background: var(--color-bg); }
+::-webkit-scrollbar-thumb  { background: var(--color-border); border-radius: 3px; }
+
+/* ── Shared Layout ── */
+.page {
+  padding: 2rem;
+}
+
+.page-title {
+  font-size:   1.4rem;
+  font-weight: 700;
+  color:       var(--color-text);
+  margin-bottom: 0.25rem;
+}
+
+.page-subtitle {
+  font-size:     0.8rem;
+  color:         var(--color-muted);
+  margin-bottom: 1.5rem;
+}
+
+/* ── Card ── */
+.card {
+  background:    var(--color-card);
+  border:        1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding:       1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.card-title {
+  font-size:      0.63rem;
+  font-weight:    700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color:          var(--color-muted);
+  margin-bottom:  1rem;
+  border-bottom:  1px solid var(--color-border);
+  padding-bottom: 0.5rem;
+}
+
+/* ── Form elements ── */
+.field {
+  margin-bottom: 1rem;
+}
+
+.field-label {
+  display:        block;
+  font-size:      0.63rem;
+  color:          var(--color-muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom:  0.4rem;
+}
+
+.input,
+.select {
+  width:         100%;
+  padding:       0.6rem 0.75rem;
+  background:    var(--color-input-bg);
+  border:        1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  color:         var(--color-text);
+  font-family:   var(--font-main);
+  font-size:     0.85rem;
+  outline:       none;
+  cursor:        text;
+  transition:    border-color 0.15s;
+}
+
+.input:focus,
+.select:focus {
+  border-color: var(--color-accent);
+}
+
+.select {
+  cursor: pointer;
+}
+
+/* ── Two-column row ── */
+.row-2 {
+  display:       flex;
+  gap:           1rem;
+  margin-bottom: 1rem;
+}
+
+.row-2 > * {
+  flex: 1;
+}
+
+/* ── Inline flex row (for button + input combos) ── */
+.inline-row {
+  display:     flex;
+  gap:         0.75rem;
+  align-items: center;
+}
+
+/* ── Segmented control (BUY/SELL, CE/PE toggles) ── */
+.seg-row {
+  display: flex;
+  gap:     0.5rem;
+}
+
+.seg-btn {
+  flex:          1;
+  padding:       0.5rem;
+  border:        1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background:    transparent;
+  color:         var(--color-muted);
+  font-family:   var(--font-main);
+  font-size:     0.82rem;
+  cursor:        pointer;
+  text-align:    center;
+  transition:    all 0.15s;
+}
+
+.seg-btn.active-green {
+  border-color: var(--color-buy);
+  background:   var(--color-buy-bg);
+  color:        var(--color-buy);
+  font-weight:  700;
+}
+
+.seg-btn.active-red {
+  border-color: var(--color-sell);
+  background:   var(--color-sell-bg);
+  color:        var(--color-sell);
+  font-weight:  700;
+}
+
+.seg-btn.active-blue {
+  border-color: var(--color-blue);
+  background:   var(--color-blue-bg);
+  color:        var(--color-blue);
+  font-weight:  700;
+}
+
+/* ── Buttons ── */
+.btn {
+  padding:       0.6rem 1.2rem;
+  border:        none;
+  border-radius: var(--radius-sm);
+  font-family:   var(--font-main);
+  font-size:     0.8rem;
+  font-weight:   700;
+  cursor:        pointer;
+  letter-spacing: 0.05em;
+  transition:    opacity 0.15s;
+}
+
+.btn:hover { opacity: 0.88; }
+
+.btn-accent { background: var(--color-accent); color: #0a0e1a; }
+.btn-buy    { background: var(--color-buy);    color: #0a0e1a; }
+.btn-sell   { background: var(--color-sell);   color: #ffffff; }
+.btn-warn   { background: var(--color-warn);   color: #0a0e1a; }
+
+.btn-outline-red {
+  background:   transparent;
+  border:       1px solid var(--color-sell);
+  color:        var(--color-sell);
+  padding:      0.3rem 0.75rem;
+  font-size:    0.72rem;
+}
+
+.btn-outline-warn {
+  background:   transparent;
+  border:       1px solid var(--color-warn);
+  color:        var(--color-warn);
+  padding:      0.3rem 0.75rem;
+  font-size:    0.72rem;
+}
+
+.btn-outline-muted {
+  background:   transparent;
+  border:       1px solid var(--color-border);
+  color:        var(--color-muted);
+  padding:      0.55rem 1rem;
+  font-size:    0.78rem;
+}
+
+/* ── Alert / Message banners ── */
+.alert {
+  margin-top:    0.75rem;
+  padding:       0.6rem 1rem;
+  border-radius: var(--radius-sm);
+  font-size:     0.78rem;
+}
+
+.alert-success {
+  background: var(--color-buy-bg);
+  border:     1px solid var(--color-buy);
+  color:      var(--color-buy);
+}
+
+.alert-error {
+  background: var(--color-sell-bg);
+  border:     1px solid var(--color-sell);
+  color:      var(--color-sell);
+}
+
+/* ── Table ── */
+.data-table {
+  width:           100%;
+  border-collapse: collapse;
+}
+
+.data-table th {
+  text-align:     left;
+  padding:        0.5rem 0.75rem;
+  font-size:      0.62rem;
+  color:          var(--color-muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-bottom:  1px solid var(--color-border);
+  font-weight:    600;
+}
+
+.data-table td {
+  padding:      0.6rem 0.75rem;
+  font-size:    0.8rem;
+  color:        var(--color-text);
+  border-bottom: 1px solid var(--color-row-div);
+}
+
+.data-table tr:last-child td {
+  border-bottom: none;
+}
+
+/* ── Badges ── */
+.badge {
+  display:        inline-block;
+  padding:        0.15rem 0.5rem;
+  border-radius:  3px;
+  font-size:      0.63rem;
+  font-weight:    700;
+  letter-spacing: 0.05em;
+}
+
+.badge-green  { background: var(--color-buy-bg);  color: var(--color-buy);  }
+.badge-red    { background: var(--color-sell-bg); color: var(--color-sell); }
+.badge-blue   { background: var(--color-blue-bg); color: var(--color-blue); }
+.badge-yellow { background: var(--color-warn-bg); color: var(--color-warn); }
+.badge-accent { background: var(--color-accent-bg); color: var(--color-accent); }
+
+/* ── Text utilities ── */
+.text-accent  { color: var(--color-accent); }
+.text-buy     { color: var(--color-buy);    }
+.text-sell    { color: var(--color-sell);   }
+.text-warn    { color: var(--color-warn);   }
+.text-muted   { color: var(--color-muted);  }
+.text-bold    { font-weight: 700; }
+
+/* ── Empty state placeholder ── */
+.empty-state {
+  text-align: center;
+  padding:    1.5rem;
+  color:      var(--color-muted);
+  font-size:  0.8rem;
+}

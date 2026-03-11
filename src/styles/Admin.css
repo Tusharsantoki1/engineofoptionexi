@@ -1,0 +1,44 @@
+/* =============================================================
+   Admin.css  —  Styles specific to the Admin Panel component
+   Covers: add-user form row, user list table, action buttons
+   ============================================================= */
+
+/* ── Add User form row (input + button side by side) ── */
+.admin-add-row {
+  display:     flex;
+  gap:         0.75rem;
+  align-items: center;
+  flex-wrap:   wrap;
+}
+
+/* Make the input grow to fill available space */
+.admin-add-row .input {
+  flex: 1;
+  min-width: 180px;
+}
+
+/* ── User count badge shown next to card title ── */
+.admin-user-count {
+  font-size:      0.63rem;
+  color:          var(--color-accent);
+  background:     var(--color-accent-bg);
+  padding:        0.1rem 0.4rem;
+  border-radius:  3px;
+  margin-left:    0.4rem;
+}
+
+/* ── User ID cell — highlighted in accent colour ── */
+.admin-user-id {
+  color:       var(--color-accent);
+  font-weight: 700;
+}
+
+/* ── User name cell ── */
+.admin-user-name {
+  color: var(--color-text);
+}
+
+/* ── Delete button cell ── */
+.admin-action-cell {
+  width: 80px;
+}

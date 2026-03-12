@@ -3,7 +3,7 @@ import "../styles/Trade.css";
 import {
   placeOrder, closePosition, getAllUsers,
   getOrdersForUser, getLivePositions, getOrderBookDepth,
-  LOT_SIZES, ceilToLot, getNumLots,
+  LOT_SIZES, ceilToLot, getNumLots, cancelOrder,
 } from "../index.js";
 
 const INSTRUMENTS  = ["Nifty", "BankNifty", "Sensex", "MidNifty"];
@@ -39,6 +39,7 @@ export default function Trade() {
   const [closePremium, setClosePremium] = useState("");
   const [closeMsg,     setCloseMsg]     = useState(null);
   const [expandedId,   setExpandedId]   = useState(null);
+  const [cancelMsg,    setCancelMsg]    = useState(null);
   const [tick,         setTick]         = useState(0);
 
   function bump() { setTick(function(t){ return t + 1; }); }
@@ -46,7 +47,8 @@ export default function Trade() {
   // ── Derived data (re-reads on every tick / state change) ──
   var allOrders      = getOrdersForUser(userId);
   var activeOrders   = allOrders.filter(function(o){ return o.status === "PENDING" || o.status === "PARTIAL"; });
-  var executedOrders = allOrders.filter(function(o){ return o.status === "EXECUTED"; });
+  var executedOrders  = allOrders.filter(function(o){ return o.status === "EXECUTED"; });
+  var cancelledOrders = allOrders.filter(function(o){ return o.status === "CANCELLED"; });
   var positions      = getLivePositions(userId);
 
   var hasContract = instrument && strikePrice && optionType;
@@ -122,6 +124,13 @@ export default function Trade() {
     } else {
       setCloseMsg({ text: res.message, err: true });
     }
+  }
+
+  // ── Cancel an active order ──
+  function handleCancel(orderId) {
+    var res = cancelOrder(userId, orderId);
+    setCancelMsg({ text: res.message, err: !res.success });
+    if (res.success) bump();
   }
 
   return (
@@ -314,7 +323,7 @@ export default function Trade() {
               <tr>
                 <th>Order ID</th><th>Instrument</th><th>Strike</th><th>Opt</th>
                 <th>Side</th><th>Qty</th><th>Lots</th><th>Filled</th><th>Remaining</th>
-                <th>Premium ₹</th><th>Status</th><th>Placed</th>
+                <th>Premium ₹</th><th>Status</th><th>Placed</th><th>Action</th>
               </tr>
             </thead>
             <tbody>
@@ -333,11 +342,19 @@ export default function Trade() {
                     <td className="text-bold">₹{o.premium}</td>
                     <td><span className={statusClass(o.status)}>{o.status}</span></td>
                     <td className="muted-cell">{fmtTime(o.placedAt)}</td>
+                    <td>
+                      <button className="btn btn-outline-red" onClick={function(){ handleCancel(o.orderId); }}>Cancel</button>
+                    </td>
                   </tr>
                 );
               })}
             </tbody>
           </table>
+        )}
+        {cancelMsg && (
+          <div className={"alert " + (cancelMsg.err ? "alert-error" : "alert-success")} style={{marginTop:"0.75rem"}}>
+            {cancelMsg.text}
+          </div>
         )}
       </div>
 
@@ -389,6 +406,39 @@ export default function Trade() {
                       );
                     })}
                   </Fragment>
+                );
+              })}
+            </tbody>
+          </table>
+        )}
+      </div>
+
+      {/* ── CANCELLED ORDERS ── */}
+      <div className="card">
+        <div className="section-heading">Cancelled Orders <span className="section-count">{cancelledOrders.length}</span></div>
+        {cancelledOrders.length === 0 ? <p className="empty-state">No cancelled orders for {userId}.</p> : (
+          <table className="data-table">
+            <thead>
+              <tr>
+                <th>Order ID</th><th>Instrument</th><th>Strike</th><th>Opt</th>
+                <th>Side</th><th>Orig Qty</th><th>Filled</th><th>Premium ₹</th><th>Placed</th><th>Cancelled At</th>
+              </tr>
+            </thead>
+            <tbody>
+              {cancelledOrders.map(function(o){
+                return (
+                  <tr key={o.orderId} className="cancelled-row">
+                    <td className="id-cell">{o.orderId}</td>
+                    <td>{o.instrument}</td>
+                    <td className="text-bold">{o.strikePrice}</td>
+                    <td><span className="badge badge-blue">{o.optionType}</span></td>
+                    <td><span className={"badge " + (o.orderType === "BUY" ? "badge-green" : "badge-red")}>{o.orderType}</span></td>
+                    <td className="muted-cell">{o.quantity}</td>
+                    <td className="text-buy">{o.filledQty}</td>
+                    <td className="text-bold">₹{o.premium}</td>
+                    <td className="muted-cell">{fmtTime(o.placedAt)}</td>
+                    <td className="muted-cell">{fmtTime(o.cancelledAt)}</td>
+                  </tr>
                 );
               })}
             </tbody>

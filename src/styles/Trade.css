@@ -276,3 +276,7 @@
 .lot-hint b { color: var(--color-text); }
 .lot-ok   { color: var(--color-buy);  font-weight: 700; }
 .lot-ceil { color: var(--color-warn); font-weight: 700; }
+
+/* ── Cancelled order row ── */
+.cancelled-row td { opacity: 0.55; text-decoration: line-through; }
+.cancelled-row .badge { opacity: 1; text-decoration: none; }

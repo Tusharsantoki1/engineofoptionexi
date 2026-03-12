@@ -3,9 +3,9 @@
 // ============================================================
 
 export let users = [
-  { id: "U001", name: "Virat Kohli" },
-  { id: "U002", name: "Rohit Sharma"  },
-  { id: "U003", name: "Tushar Santoki"    },
+  { id: "U001", name: "Arjun Sharma" },
+  { id: "U002", name: "Priya Mehta"  },
+  { id: "U003", name: "Rohan Das"    },
 ];
 
 export let orderBook = [];
@@ -173,6 +173,27 @@ export function placeOrder(userId, instrument, strikePrice, optionType, orderTyp
 export function closePosition(userId, instrument, strikePrice, optionType, direction, quantity, premium) {
   var rev = direction === "BUY" ? "SELL" : "BUY";
   return placeOrder(userId, instrument, strikePrice, optionType, rev, quantity, premium);
+}
+
+// ── CANCEL ORDER ──
+// Only PENDING or PARTIAL orders can be cancelled.
+// PARTIAL: remainingQty is zeroed out (already-filled qty stays).
+export function cancelOrder(userId, orderId) {
+  var order = orderBook.find(function(o){ return o.orderId === orderId; });
+  if (!order)
+    return { success: false, message: "Order " + orderId + " not found." };
+  if (order.userId !== userId)
+    return { success: false, message: "You can only cancel your own orders." };
+  if (order.status !== "PENDING" && order.status !== "PARTIAL")
+    return { success: false, message: orderId + " is already " + order.status + " — cannot cancel." };
+
+  var removedQty     = order.remainingQty;
+  order.status       = "CANCELLED";
+  order.remainingQty = 0;
+  order.cancelledAt  = new Date().toISOString();
+
+  return { success: true, removedQty: removedQty,
+           message: orderId + " cancelled — " + removedQty + " qty removed from book." };
 }
 
 export function getOrdersForUser(userId) {

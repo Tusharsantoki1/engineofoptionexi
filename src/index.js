@@ -3,9 +3,9 @@
 // ============================================================
 
 export let users = [
-  { id: "U001", name: "Arjun Sharma" },
-  { id: "U002", name: "Priya Mehta"  },
-  { id: "U003", name: "Rohan Das"    },
+  { id: "U001", name: "Virat Kohli" },
+  { id: "U002", name: "Rohit Sharma"  },
+  { id: "U003", name: "Tushar Santoki"    },
 ];
 
 export let orderBook = [];

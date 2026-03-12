@@ -18,7 +18,7 @@ function App() {
 
       {/* ── Header ── */}
       <header className="app-header">
-        <div className="app-logo">⬡ OptionsDeskPro</div>
+        <div className="app-logo">Delta x Broking llp </div>
 
         <nav className="app-nav">
           {[
